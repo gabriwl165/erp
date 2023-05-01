@@ -100,7 +100,7 @@ public class ImageController {
 
         Image image = ImageIO.read(objData);
         BufferedImage bi = this.createResizedCopy(image, 576, 580, true);
-        ImageIO.write(bi, "gif", new File("/home/gabriwl/projetos/Sistema-ERP/src/main/resources/media/"));
+        ImageIO.write(bi, "gif", new File("/home/gabriwl/projetos/erp/BackendApplication/src/main/resources/media/"));
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ImageIO.write(bi, "png", byteArrayOutputStream);
