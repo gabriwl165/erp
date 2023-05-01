@@ -1,2 +1,4 @@
 /FrontApplication/node_modules/
 /BackendApplication/target/
+/FrontApplication/dist/
+/BackendApplication/src/main/resources/static/
