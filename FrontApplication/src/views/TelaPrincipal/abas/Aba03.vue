@@ -25,6 +25,9 @@ export default {
     name: "Aba03",
     components: {ListTable, ImageUpload, Button},
     mixins: [HTTPRequestMixin, ToastMixin],
+    props: {
+      url: String
+    },
     data: () => ({
         image: null,
         urlCatErro: '',
@@ -40,7 +43,7 @@ export default {
             let key = this.itens[index]['nome']
             console.log(key);
 
-            this.postRequest('http://localhost:8080/image/get', key, (resp) => {
+            this.postRequest(`/image/get`, key, (resp) => {
                 this.$bvModal.show("imageModal")
                 debugger
                 const blob = resp.object;
@@ -61,7 +64,7 @@ export default {
             })
         },
         loadKeys() {
-            this.getRequest('http://localhost:8080/image/getKeys', resp => {
+            this.getRequest(`/image/getKeys`, resp => {
                 this.itens = resp.object
             }, resp => {
                 console.log(resp)
@@ -73,9 +76,9 @@ export default {
             const formData = new FormData();
             formData.append("image", imagem)
             formData.append("name", imagem.name)
-            axios.post('http://localhost:8080/image/save', formData).then(async (resp) => {
+            axios.post(`/image/save`, formData).then(async (resp) => {
                 debugger
-                if(resp.data.success) {
+                if(resp.object.success) {
                     this.image = null
                     debugger
                     this.makeToast("Salvo com sucesso", "Sucesso")

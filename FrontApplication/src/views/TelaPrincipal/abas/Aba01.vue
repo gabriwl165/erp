@@ -73,7 +73,7 @@ export default {
     },
     salvar() {
 
-      let url = 'http://localhost:8080/usuario/salvar';
+      let url = `http://${this.url}:8080/usuario/salvar`;
       let obj = this.form;
       this.postRequest(url, obj, resp => {
         this.$bvModal.show('bv-modal-adicionarEndereco')
@@ -91,7 +91,7 @@ export default {
       })
     },
     async salvarEndereco() {
-      let url = `http://localhost:8080/usuarioEndereco/salvar?idUsuario=${this.idNovoUsuario}`;
+      let url = `http://${this.url}:8080/usuarioEndereco/salvar?idUsuario=${this.idNovoUsuario}`;
       let obj = this.endereco;
       await this.postRequest(url, obj, resp => {
             this.idNovoUsuario = resp.data.object

@@ -11,7 +11,7 @@
                    @ObjetoEditar="editarRegistro" @ObjetoExcluir="excluirRegistro" :debugList="false"/>
       </Tab>
       <Tab label="Tab 3">
-        <Aba03/>
+        <Aba03 :url="url"/>
       </Tab>
     </Tabs>
 
@@ -35,16 +35,16 @@ import ListTable from "@/components/ListTable";
 import TopBar from "@/components/TopBar";
 import Tabs from "@/components/Tabs";
 import Tab from "@/components/Tab";
-
 import axios from 'axios';
 import EditUser from "@/views/EditUser";
 import Aba01 from "@/views/TelaPrincipal/abas/Aba01";
-import Button from "@/components/Button";
 import Aba03 from "@/views/TelaPrincipal/abas/Aba03";
+import HTTPRequestMixin from "@/mixins/HTTPRequestMixin";
 
 export default {
   name: "TelaPrincipal",
-  components: {Aba03, Aba01, EditUser, Tab, TopBar, ListTable, Tabs,},
+    mixins: [HTTPRequestMixin],
+  components: {Aba03, Aba01, EditUser, Tab, TopBar, ListTable, Tabs},
   data() {
     return {
       image: null,
@@ -77,15 +77,12 @@ export default {
     },
   },
   created() {
-    axios.get('http://localhost:8080/usuario/', {
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem("access_token")}`
-      }
-    }).then(resp => {
-      console.log(resp.data.object)
-      this.items = resp.data.object
+      this.getRequest('/usuario/', resp => {
+          this.items = resp.object
+      }, err => {
+          console.log(err)
+      })
 
-    }).catch(resp => console.log(resp))
   },
 }
 
